@@ -8,13 +8,13 @@ class LinkedList {
 
 public:
     Node* head = nullptr;
-    int length = 0;
+    int size = 0;
 
     void Traverse();
-
     void InsertAtBeginning(int);
     void InsertAtLast(int);
     void InsertAtPosition(int, int);
+    void DeleteAtPosition(int);
 
     ~LinkedList();
 };

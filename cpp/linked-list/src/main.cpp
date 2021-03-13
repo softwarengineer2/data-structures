@@ -9,9 +9,10 @@ int main() {
     x1->InsertAtLast(4);
     x1->InsertAtLast(5);
     x1->InsertAtBeginning(1);
-    x1->InsertAtPosition(2,1);
+    x1->InsertAtPosition(2,2);
     x1->InsertAtLast(6);
     x1->InsertAtLast(7);
+    x1->DeleteAtPosition(2);
     x1->Traverse();
     delete x1;
 

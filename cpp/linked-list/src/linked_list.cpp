@@ -15,7 +15,7 @@ void LinkedList::InsertAtBeginning(int data) {
     if(this->head != NULL)
         newNode->next = this->head;
     this->head = newNode;
-    length++;
+    size++;
 }
 
 void LinkedList::InsertAtLast(int data) {
@@ -24,22 +24,56 @@ void LinkedList::InsertAtLast(int data) {
         lastNode = lastNode->next;
     }
     lastNode->next = new Node(data);
-    length++;
+    size++;
 }
 
 void LinkedList::InsertAtPosition(int data, int position) {
     int counter = 0;
-    if(position > length) {
-        throw std::overflow_error("position is wrong!");
+    if(position < 1 || position > size) {
+        throw std::overflow_error("invalid position!");
     }
     Node* targetNode = head;
+    Node* prevNode = NULL;
     Node* newNode = new Node(data);
-    while(targetNode != NULL && counter < position) {
+    while(targetNode != NULL) {
         if(counter == position-1) {
-            newNode->next = targetNode->next;
-            targetNode->next = newNode;
+            newNode->next = targetNode;
+            if(prevNode == NULL) {
+                head = newNode;
+            }
+            else {
+                prevNode->next = newNode;
+            }
+            size++;
             break;
         }
+        prevNode = targetNode;
+        targetNode = targetNode->next;
+        counter++;
+    }
+}
+
+void LinkedList::DeleteAtPosition(int position) {
+    int counter = 0;
+    if(position < 1 || position > size) {
+        throw std::overflow_error("invalid position!");
+    }
+    Node* targetNode = head;
+    Node* prevNode = NULL;
+    while(targetNode != NULL) {
+        if(counter == position-1) {
+            if(prevNode == NULL) {
+                head = targetNode->next;
+            }
+            else {
+                prevNode->next = targetNode->next;
+            }
+            targetNode->next = NULL;
+            delete targetNode;
+            size--;
+            break;
+        }
+        prevNode = targetNode;
         targetNode = targetNode->next;
         counter++;
     }
