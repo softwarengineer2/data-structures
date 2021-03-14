@@ -3,7 +3,7 @@
 
 void LinkedList::Traverse() {
     Node* tempPtr = head;
-    while(tempPtr != NULL) {
+    while(tempPtr != nullptr) {
         std::cout<<"Data : "<<tempPtr->data<<std::endl;
         tempPtr = tempPtr->next;
     }
@@ -12,19 +12,24 @@ void LinkedList::Traverse() {
 
 void LinkedList::InsertAtBeginning(int data) {
     Node* newNode = new Node(data);
-    if(this->head != NULL)
-        newNode->next = this->head;
-    this->head = newNode;
+    if(head != nullptr)
+        newNode->next = head;
+    head = newNode;
     size++;
 }
 
 void LinkedList::InsertAtLast(int data) {
-    Node* lastNode = head;
-    while(lastNode->next != NULL) {
-        lastNode = lastNode->next;
+    if(head == nullptr) {
+        InsertAtBeginning(data);
     }
-    lastNode->next = new Node(data);
-    size++;
+    else {
+        Node* lastNode = head;
+        while(lastNode->next != nullptr) {
+            lastNode = lastNode->next;
+        }
+        lastNode->next = new Node(data);
+        size++;
+    }
 }
 
 void LinkedList::InsertAtPosition(int data, int position) {
@@ -33,12 +38,12 @@ void LinkedList::InsertAtPosition(int data, int position) {
         throw std::overflow_error("invalid position!");
     }
     Node* targetNode = head;
-    Node* prevNode = NULL;
+    Node* prevNode = nullptr;
     Node* newNode = new Node(data);
-    while(targetNode != NULL) {
+    while(targetNode != nullptr) {
         if(counter == position-1) {
             newNode->next = targetNode;
-            if(prevNode == NULL) {
+            if(prevNode == nullptr) {
                 head = newNode;
             }
             else {
@@ -59,16 +64,16 @@ void LinkedList::DeleteAtPosition(int position) {
         throw std::overflow_error("invalid position!");
     }
     Node* targetNode = head;
-    Node* prevNode = NULL;
-    while(targetNode != NULL) {
+    Node* prevNode = nullptr;
+    while(targetNode != nullptr) {
         if(counter == position-1) {
-            if(prevNode == NULL) {
+            if(prevNode == nullptr) {
                 head = targetNode->next;
             }
             else {
                 prevNode->next = targetNode->next;
             }
-            targetNode->next = NULL;
+            targetNode->next = nullptr;
             delete targetNode;
             size--;
             break;
@@ -80,6 +85,6 @@ void LinkedList::DeleteAtPosition(int position) {
 }
 
 LinkedList::~LinkedList() {
-    if(head!=NULL)
+    if(head!=nullptr)
         delete head;
 }

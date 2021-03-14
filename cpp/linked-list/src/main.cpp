@@ -6,6 +6,7 @@ using namespace std;
 int main() {
     LinkedList* x1 = new LinkedList();
     x1->InsertAtBeginning(3);
+    x1->DeleteAtPosition(1);
     x1->InsertAtLast(4);
     x1->InsertAtLast(5);
     x1->InsertAtBeginning(1);
