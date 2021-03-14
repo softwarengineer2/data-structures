@@ -6,6 +6,6 @@ Node::Node(int data) {
 }
 
 Node::~Node() {
-    if(next!=NULL)
+    if(next!=nullptr)
         delete next;
 }

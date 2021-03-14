@@ -3,7 +3,7 @@
 
 void DoublyLinkedList::Traverse() {
     Node* tempPtr = head;
-    while(tempPtr != NULL) {
+    while(tempPtr != nullptr) {
         std::cout<<"Data : "<<tempPtr->data<<std::endl;
         tempPtr = tempPtr->next;
     }
@@ -12,23 +12,28 @@ void DoublyLinkedList::Traverse() {
 
 void DoublyLinkedList::InsertAtBeginning(int data) {
     Node* newNode = new Node(data);
-    if(this->head != NULL) {
-        newNode->next = this->head;
-        this->head->prev = newNode;
+    if(head != nullptr) {
+        newNode->next = head;
+        head->prev = newNode;
     }
-    this->head = newNode;
+    head = newNode;
     size++;
 }
 
 void DoublyLinkedList::InsertAtLast(int data) {
-    Node* lastNode = head;
-    while(lastNode->next != NULL) {
-        lastNode = lastNode->next;
+    if(head == nullptr) {
+        InsertAtBeginning(data);
     }
-    Node* newData = new Node(data);
-    lastNode->next = newData;
-    newData->prev = lastNode;
-    size++;
+    else {
+        Node* lastNode = head;
+        while(lastNode->next != nullptr) {
+            lastNode = lastNode->next;
+        }
+        Node* newData = new Node(data);
+        lastNode->next = newData;
+        newData->prev = lastNode;
+        size++;
+    }
 }
 
 void DoublyLinkedList::InsertAtPosition(int data, int position) {
@@ -37,12 +42,12 @@ void DoublyLinkedList::InsertAtPosition(int data, int position) {
         throw std::overflow_error("invalid position!");
     }
     Node* targetNode = head;
-    Node* prevNode = NULL;
+    Node* prevNode = nullptr;
     Node* newNode = new Node(data);
-    while(targetNode != NULL) {
+    while(targetNode != nullptr) {
         if(counter == position-1) {
             newNode->next = targetNode;
-            if(prevNode == NULL) {
+            if(prevNode == nullptr) {
                 head = newNode;
             }
             else {
@@ -64,10 +69,10 @@ void DoublyLinkedList::DeleteAtPosition(int position) {
         throw std::overflow_error("invalid position!");
     }
     Node* targetNode = head;
-    Node* prevNode = NULL;
-    while(targetNode != NULL) {
+    Node* prevNode = nullptr;
+    while(targetNode != nullptr) {
         if(counter == position-1) {
-            if(prevNode == NULL) {
+            if(prevNode == nullptr) {
                 head = targetNode->next;
             }
             else {
@@ -76,7 +81,7 @@ void DoublyLinkedList::DeleteAtPosition(int position) {
                     prevNode->next->prev = prevNode;
             }
             targetNode->prev = nullptr;
-            targetNode->next = NULL;
+            targetNode->next = nullptr;
             delete targetNode;
             size--;
             break;
@@ -88,6 +93,6 @@ void DoublyLinkedList::DeleteAtPosition(int position) {
 }
 
 DoublyLinkedList::~DoublyLinkedList() {
-    if(head!=NULL)
+    if(head!=nullptr)
         delete head;
 }
