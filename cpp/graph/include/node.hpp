@@ -11,7 +11,5 @@ public:
 
     Node()=default;
     Node(int data, int weight=1);
-    
-    //~Node();
 };
 #endif
