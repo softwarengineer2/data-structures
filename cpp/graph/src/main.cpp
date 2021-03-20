@@ -1,5 +1,4 @@
 #include <iostream>
-#include "../include/linked_list.hpp"
 #include "../include/edge.hpp"
 #include "../include/graph.hpp"
 
