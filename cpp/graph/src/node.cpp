@@ -1,12 +1,7 @@
 #include <iostream>
 #include "../include/node.hpp"
 
-Node::Node(int data, int weight/*=1*/) {
+Node::Node(int data, int weight) {
     this->data = data;
     this->weight = weight;
 }
-
-//Node::~Node() {
-    //if(next!=nullptr)
-    //    delete next;
-//}
