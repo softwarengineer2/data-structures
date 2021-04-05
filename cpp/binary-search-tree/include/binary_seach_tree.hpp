@@ -16,6 +16,12 @@ public:
     ~BinarySearchTree();
 
     void Add(int data);
+    Node* Search(int data);
+    Node* Delete(Node* node, int data);
+    Node* FindMin(Node* node);
+    int MaxDepth(Node* node);
+    int MinDepth(Node* node);
+    void DeleteTree(Node* node);
     void printPostorder(Node* node);
     void printPreorder(Node* node);
     void printInorder(Node* node);
