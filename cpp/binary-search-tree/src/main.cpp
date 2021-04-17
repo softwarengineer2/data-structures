@@ -12,7 +12,6 @@ int main() {
     binarySearchTree->Add(20);
     binarySearchTree->Add(16);
     binarySearchTree->Add(25);
-    
     binarySearchTree->Add(4);
     binarySearchTree->Add(9);
     binarySearchTree->Add(11);
@@ -25,7 +24,7 @@ int main() {
 
     Node* test = binarySearchTree->Search(10);
     if(test!=nullptr) {
-        cout<<"Bulduk : " <<test<<"___"<<test->data<<endl;
+        cout<<"Found It"<<endl;
     }
 
     binarySearchTree->Delete(binarySearchTree->root, 10);

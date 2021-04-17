@@ -1,14 +1,67 @@
-#include "../include/binary_seach_tree.hpp"
+#include "../include/min_heap_tree.hpp"
 
-BinarySearchTree::~BinarySearchTree()
+MinHeapTree::~MinHeapTree()
 { 
     DeleteTree(root);
 } 
 
-void BinarySearchTree::DeleteTree(Node* node) {
+int MinHeapTree::Parent(int i) {
+    return (i>>1);
+}
+
+int MinHeapTree::Left(int i) {
+    return (i<<1);
+}
+
+int MinHeapTree::Right(int i) {
+    return (i<<1)+1;
+}
+
+
+bool MinHeapTree::IsEmpty() const {
+    return size==0;
+}
+
+int MinHeapTree::GetMin() {
+    return vect[1];
+}
+
+int MinHeapTree::ExtractMin() {
+    int maxNum = GetMin();
+    std::swap(vect[1], vect[size--]);
+    ShiftDown(1);
+    return maxNum;
+}
+
+void MinHeapTree::ShiftUp(int i) {
+    if(i > size) return;
+    if(i == 1) return;
+    if(vect[i] < vect[Parent(i)]) {
+        std::swap(vect[Parent(i)], vect[i]);
+    }
+    ShiftUp(Parent(i));
+}
+
+void MinHeapTree::ShiftDown(int i) {
+    if( i > size) return;
+    int swapId = i;
+    if(Left(i) >= size && vect[i] > vect[Left(i)]) {
+        swapId = i;
+    }
+
+    if(Right(i) >= size && vect[swapId] > vect[Right(i)]) {
+        swapId = Right(i);
+    }
+
+    if(swapId != i) {
+        std::swap(vect[i], vect[swapId]);
+        ShiftDown(swapId);
+    }
+}
+
+void MinHeapTree::DeleteTree(Node* node) {
     if (node == NULL) 
         return; 
-  
     
     DeleteTree(node->left); 
     DeleteTree(node->right); 
@@ -16,7 +69,19 @@ void BinarySearchTree::DeleteTree(Node* node) {
     delete node;
 }
 
-void BinarySearchTree::printPostorder(Node *node)
+
+void MinHeapTree::Add(int data)
+{
+    std::cout << "Add : " << data << std::endl;
+    if(size+1 >= vect.size()) {
+        vect.push_back(0);
+    }
+    vect[++size] = data;
+    ShiftUp(size);
+}
+
+
+void MinHeapTree::printPostorder(Node *node)
 {
     if (node == NULL)
         return;
@@ -26,7 +91,7 @@ void BinarySearchTree::printPostorder(Node *node)
     std::cout << node->data << " ";
 }
 
-void BinarySearchTree::printInorder(Node *node)
+void MinHeapTree::printInorder(Node *node)
 {
     if (node == NULL)
         return;
@@ -36,7 +101,7 @@ void BinarySearchTree::printInorder(Node *node)
     printInorder(node->right);
 }
 
-void BinarySearchTree::printPreorder(Node *node)
+void MinHeapTree::printPreorder(Node *node)
 {
     if (node == NULL)
         return;
@@ -46,48 +111,7 @@ void BinarySearchTree::printPreorder(Node *node)
     printPreorder(node->right);
 }
 
-void BinarySearchTree::Add(int data)
-{
-    std::cout << "Add : " << data << std::endl;
-    if (totalNodes == 0)
-    {
-        root = new Node(data);
-    }
-    else
-    {
-        Node *tempNode = root;
-        while (tempNode != nullptr)
-        {
-            if (data >= tempNode->data)
-            {
-                if (tempNode->right == nullptr)
-                {
-                    tempNode->right = new Node(data);
-                    break;
-                }
-                else
-                {
-                    tempNode = tempNode->right;
-                }
-            }
-            else
-            { 
-                if (tempNode->left == nullptr)
-                {
-                    tempNode->left = new Node(data);
-                    break;
-                }
-                else
-                {
-                    tempNode = tempNode->left;
-                }
-            }
-        }
-    }
-    totalNodes++;
-}
-
-Node* BinarySearchTree::Search(int data)
+Node* MinHeapTree::Search(int data)
 {
     std::cout << "Search : " << data << std::endl;
     Node* foundNode = nullptr;
@@ -122,11 +146,11 @@ Node* BinarySearchTree::Search(int data)
             }
         }
     }
-    totalNodes++;
+    size++;
     return foundNode;
 }
 
-int BinarySearchTree::MaxDepth(Node* node)
+int MinHeapTree::MaxDepth(Node* node)
 {
     if (node==NULL)
         return 0;
@@ -147,7 +171,7 @@ int BinarySearchTree::MaxDepth(Node* node)
 }  
 
 
-int BinarySearchTree::MinDepth(Node* node)
+int MinHeapTree::MinDepth(Node* node)
 {
     if (node==NULL)
         return 0;
@@ -167,7 +191,7 @@ int BinarySearchTree::MinDepth(Node* node)
    }
 }  
 
-Node* BinarySearchTree::FindMin(Node* node)
+Node* MinHeapTree::FindMin(Node* node)
 {
     if(node!=nullptr) 
     {
@@ -179,7 +203,7 @@ Node* BinarySearchTree::FindMin(Node* node)
 	return node;
 }
 
-Node* BinarySearchTree::Delete(Node* node, int data)
+Node* MinHeapTree::Delete(Node* node, int data)
 {
     if(node == nullptr) {
         return node; 
